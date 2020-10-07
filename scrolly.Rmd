@@ -11,11 +11,11 @@ output: rolldown::scrollama
   padding: 1em 1em 1em;
 }
 .is-active {
-  background-color: lightgrey;
+  background-color: #FAFAFA;
 }
 body {
   margin-bottom: 80vh;
-  background-color: lightgrey;
+  background-color: #FAFAFA;
   font-family: "Trebuchet MS";
 }
 ```
@@ -32,13 +32,17 @@ library(extrafont)
 knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
 ```
 
-**Repository**: Link | **Contact**: You can find me on Twitter or write me an e-mail.
+<br>
+
+**Repository**: [presidentialdebate2020](https://github.com/bonschorno/presidentialdebate2020) | **Contact**: I'm on [Twitter](https://twitter.com/bonschorno) or you can find my e-mail on the Github page.
+
+<br>
 
 ## Intro {-}
 
-I must admit I did not watch the debate between the two presidential candidates. But it seems that I didn't miss anything either. All the major American newspapers concluded that the discussion rapidly turned into chaos. The Times in London concluded: "The clearest loser of this first presidential debate between Donald Trump and Joe Biden was America" (Source: [The Times](https://www.thetimes.co.uk/article/us-presidential-debate-donald-trump-launches-tirade-of-personal-attacks-on-joe-biden-in-chaotic-debate-jfmwxjmqj)).
+I must admit I did not watch the debate between the two presidential candidates. But it seems that I didn't miss anything either. All major American newspapers concluded that the discussion rapidly turned into chaos. The Times in London disappointedly concluded: "The clearest loser of this first presidential debate between Donald Trump and Joe Biden was America" (Source: [The Times](https://www.thetimes.co.uk/article/us-presidential-debate-donald-trump-launches-tirade-of-personal-attacks-on-joe-biden-in-chaotic-debate-jfmwxjmqj)).
 
-So, after CNN's Dana Bash calling the debate a "shitshow" (Source: [CNN](https://www.realclearpolitics.com/video/2020/09/29/cnns_dana_bash_debate_was_a_shitshow.html)), I wanted to analyze it myself and web scraped the [USA Today](https://eu.usatoday.com/story/news/politics/elections/2020/09/30/presidential-debate-read-full-transcript-first-debate/3587462001/) page that published the meticulously transcribed debate a few days ago. I scraped the website using the `rvest` package; for the data wrangling and visualizations, I used the different packages from the `tidyverse.` More advanced visualizations like the "keyness"-plot were created using the `quanteda` package. 
+So, after CNN's Dana Bash calling the debate a "shitshow" (Source: [CNN](https://www.realclearpolitics.com/video/2020/09/29/cnns_dana_bash_debate_was_a_shitshow.html)), I wanted to analyze it myself and checked out the [USA Today](https://eu.usatoday.com/story/news/politics/elections/2020/09/30/presidential-debate-read-full-transcript-first-debate/3587462001/) page that published the meticulously transcribed debate a few days ago. I scraped the website using the `rvest` package; for the data wrangling and visualizations, I used the different packages from the `tidyverse.` More advanced visualizations like the "keyness"-plot were created using the `quanteda` package. 
 
 Some caveats at the beginning. For simplicity's sake, some issues are not flawlessly coded. For example, a statement by presidential candidate Biden is not included because it was awkwardly embedded in the HTML document and its exclusion greatly simplified the code. Also, for the descriptive plots at the beginning, I counted the number of words only in a crude way and did not remove the stopwords. I do not assume that this has a strong influence on the visualization. If it does, please file an issue. You can find the complete code in the following repo. 
 
@@ -85,12 +89,12 @@ ggplot(data = statements, aes(x = speaker, y = n, fill = speaker)) +
   theme(legend.position = "none",
         panel.grid.major.x = element_blank(),
         plot.title = element_text(hjust = 0.5, face = "bold"),
-        plot.background = element_rect(fill = "lightgrey", color = "lightgrey"))
+        plot.background = element_rect(fill = "#FAFAFA", color = "#FAFAFA"))
 ```
 
 With 165 statements, Trump had the most and 25 more statements than candidate Biden. However, this number doesn't allow any conclusions about the length of their comments, which is probably more meaningful. It should be pointed out how often Chris Wallace, the moderator, spoke. This probably has its good reasons, but more about this later. 
 
-First, the question arises whether Trump's statements were not only more frequent but also longer. A histogram helps us to examine the comments of the two candidates in more detail.
+First, the question arises whether Trump's statements were not only more frequent but also longer. A density plot helps us to examine the comments of the two candidates in more detail.
 
 <br>
 
@@ -123,14 +127,14 @@ number_words %>%
         legend.position = "top",
         panel.grid = element_blank(),
         plot.title = element_text(hjust = 0.5, face = "bold"),
-        plot.background = element_rect(fill = "lightgrey", color = "lightgrey"))
+        plot.background = element_rect(fill = "#FAFAFA", color = "#FAFAFA"))
 ```
 
-Zwei Aspekte werden ersichtlich. Erstens, beide Kandidaten haben nur wenige Statements, die länger als 100 Wörter lang sind. Die meisten Kommentare konzentriere sich um eine Länge von 10-25 Wörtern. Zum Vergleich: Ein durchschnittlicher Satz in der Literatur, obwohl das schwer zu definieren ist, enthält heutzutage zwischen 15-20 Wörter. Die Satzlänge ist in der gesprochenen Sprache deutlich kürzer und variiert von Medium zu Medium, von Gespräch zu Gespräch, aber diese Zahlen zeigen auf, dass die meisten Statements der Kandidaten aus vielleicht zwei, maximal drei Sätzen bestanden. Ein erster Hinweis darauf, wie die Debatte nicht aus längeren Parolen, sondern vielmehr aus kurzen, unterbrochenen Statements bestand. 
+Two aspects become apparent. First, both candidates have only a few statements longer than 100 words. Most comments are concentrated around a length of 10-25 words. For comparison, although difficult to define, an average sentence in literature contains between 15-20 words. Sentence length is obviously much shorter in spoken language. It varies from medium to medium, from conversation to conversation, but these figures show that most of the candidates' statements consisted of perhaps two, at most three sentences. A first indication of how the debate did not consist of longer phrases, but rather of short, interrupted statements. 
 
-Zweitens lässt sich anhand der übereinandergelegten Verteilungen gut erkennen, wie sich die Länge der Kommentare der beiden Kandidaten deutlich unterscheidet. Trump hatte deutlich mehr kürzere Statements als sein Counterpart während Biden mehr Statement im Bereich zwischen 50-100 Wörter hat. Auch dies ein deutlicher Hinweis dafür, wie sich die Debattenkulturen der beiden Kandidaten unterscheiden.
+Second, the superimposed distributions show how the length of the comments of the two candidates differs significantly. Trump had significantly shorter statements than his counterpart, while Biden had more statements in the range between 50-100 words. Another clear indication of how the debate cultures of the two candidates differ.
 
-Zuletzt stellt sich die Frage, ob sich die Länge der Statements im Verlauf der geändert hatte. For instance, wurden die Statements, je länger die Debatte dauerte, kürzer? Wie reagierten die Kandidaten auf Remarks des Gegenübers? Der folgende Plot gibt darüber Aufschluss.
+Finally, the question arises whether the length of the statements had changed throughout the debate. For instance, did the statements become shorter the longer the debate lasted? How did the candidates react to remarks from the other person? The following plot provides information on this.
 
 <br>
 
@@ -148,21 +152,25 @@ number_words %>%
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
         plot.title = element_text(hjust = 0.5, face = "bold"),
-        plot.background = element_rect(fill = "lightgrey", color = "lightgrey"),
+        plot.background = element_rect(fill = "#FAFAFA", color = "#FAFAFA"),
         axis.text.x = element_text(face = "bold")) 
+
+ggsave("plots/statements_length.png", dpi = 400, width = 30, height = 20, units = "cm")
 ```
 
-Unschwer sind die spikes aus der Grafik herauszulesen, die die sehr langen Statements der beiden Kandidaten ab und wann widerspiegeln. Meistens folgen sie direkt aufeinander. Sprich, entweder reagierte Trump sofort mit einem langen Kommentare auf ein langes Statement von Biden oder umgekehrt. Ausführen, welche Spikes welche Intervention repräsentieren. 
+It is easy to read the graphic's spikes, reflecting the two candidates' very long statements now and then. Most of the time, they follow each other directly. Either Trump reacted immediately with a long comment to a lengthy statement from Biden or vice versa. 
 
-Um diese ersten deskriptiven Grafiken zusammenzufassen: Trump platzierte mehr Statements als Biden, jedoch waren viele davon kürzer als diejenigen des ehemaligen Vizepräsidenten. Die letzte Grafik zeigte auf, dass die Lànge der Statements im Verlauf der Debatte einem klaren Muster folgte. Der eine Kandidat reagierte mit einem langen Kommentar auf ein ausführliches Statements des anderen oder umgekehrt. Dieses Muster zieht sich durch die ganze Debatte hindurch und die Wortlänge verändert sich im Verlauf der Diskussion kaum. 
+To summarize these first descriptive graphics: Trump placed more statements than Biden, but many were shorter than those of the former vice president. The last graph showed that the length of the statements followed a clear pattern throughout the debate. One candidate responded with a lengthy commentary to a detailed statement by the other or vice versa. This pattern runs through the entire debate, and the length of the words hardly changed during the discussion. 
 
-Wir wissen nun bereits ein wenig, wie die beiden Kandidaten sich präsentiert haben, doch nach wie vor ist unklar, WAS sie überhaupt sagten. Gewissermassen war der Inhalt der Parolen durch die verschiedenen thematischen Segmente vorgegeben, aber dennoch lässt dies grossen Spielraum, um die Persänlichkeit der beiden Kontrahenten anhand ihrer Aussagen genauer zu entschlüsseln. 
+We already know a little about how the two candidates presented themselves, but it is still unclear WHAT they said at all. To a certain extent, the content of the statements was predetermined by the various thematic segments, but this still leaves a great deal of room for deciphering the two opponents' personalities more precisely based on their statements. 
 
-Entsprechend versucht der folgende Abschnitt die inhaltliche Ebene der Debatte zu durchleuchten. Dafür plotte ich anfänglich die krude Statistik der meistgenannten Wörter, bevor fortgeschrittenere Methoden wie die "textual keyness" Aufschluss darüber geben, welche Wörter besonders personen-spezifisch verwendet wurden. Zuletzt zeigen Netzwerke die co-occurences der Wörter in den Statements der beiden Kandidaten auf.
+Accordingly, the following section attempts to illuminate the substantive level of the debate. For this purpose, I first plot the crude statistics of the most frequently used words, before more advanced methods such as "textual keyness" reveal which words have been used in a person-specific way. Finally, networks show the co-occurrences of the words in the statements of the two candidates.
 
 ## What exactly? {-}
 
-Zunächst konzentrieren wir uns auf einen sehr kruden Messwert - die Worthäufigkeit. Im obigen Plot sind jeweils die 10 meistbenutzen Wörter der beiden Kandidaten aufgeführt. Bei beiden kommen die "people" an erster Stelle. Bei Biden, sofern das anhand der 10 meistbenutzen Wörter möglich ist, lässt sich eine gewisse (dringende) Tatkraft erkennen: "going" spielt auf zukünftige actions an, genauso die Wörter "deal" und "now". Ausserdem ist interessant, wie -- nachdem die stopwords entfernt wurden -- das Wort "fact" am drittmeisten von Kandidaten Biden benutzt wurde. War das Absicht angesichts der Tatsache, dass bei Trump schnell der Verdacht nach Fake News vorkommt?
+First, we focus on a crude measurement - the word frequency. The plot below shows the ten most used words for each of the two candidates. In both cases, the "people" come first. With Biden, provided that this is possible based on the ten most used words, a certain (urgent) drive can be identified: "going" might allude to (future) actions, as do the terms "deal" and "now". It is also interesting how -- after the stopwords were removed -- the word "fact" was used most often by Biden. Was this intentional, given the fact that Trump quickly suspects fake news?
+
+<br>
 
 ```{r, include=FALSE}
 #preparing the corpus of the whole debate
@@ -235,22 +243,24 @@ plot_trump10 <- ggplot(data = trump_top10, aes(x = fct_reorder(word, value), y =
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 
 plot_biden10 + plot_trump10 +
-  plot_layout(ncol = 2, guides = "collect") & theme(plot.background = element_rect(fill = "lightgrey", color = "lightgrey"))
+  plot_layout(ncol = 2, guides = "collect") & theme(plot.background = element_rect(fill = "#FAFAFA", color = "#FAFAFA"))
 ```
 
-Die meistbenutzen Wörtern des Präsidenten wiederum lassen in dieser Form ohne Kontext wenig Rückschlüsse zu. Die Wörter "want", "look", "know", "said", aber auch die anderen Wörter können in ganz unterschiedlichen Zusammenhängen verwendet werden, weswegen Interpretationen an dieser Stelle verfrüht wären. 
+The president's most frequently used words, on the other hand, allow little inference without context. The words "want", "look", "know", "said", but also the other words can be used in very different contexts, making interpretations at this point premature. 
 
-Gehen wir deshalb einen Schritt weiter und schauen uns einen sogennanten "keyness"-Plot an. Sehr vereinfacht gesagt, bedeutet "Keyness" in diesem Fall, wie kandidaten-spezifisch ein gewisses Wort ist. Je höher der absolute Wert von Chi Square ist, desto kandidatenspezifischer ist das entsprechende Wort. Hier lassen sich bereits einige interessante Tendenzen erkennen. 
+Let's go one step further and look at a so-called "keyness" plot. In very simplified terms, "keyness" in this case means how candidate-specific a particular word is. The higher the absolute value of Chi-Square, the more candidate-specific the word is. Some interesting tendencies can already be observed here. 
 
-Das Trump-spezifischste Wort ist "joe". Dies kommt nicht überraschend. Wer die Debatte geschaut hat, wird sich daran erinnern, wie oft der Präsident seinen Kontrahenten mit seinem Vornamen angesprochen. Zwar nicht abgebildet, aber unter den "typischsten" Trump-Wörter kommt auch "chris" vor, also der Name des Moderators. Trump's direkte Art wird also auch in dieser Debatte klar ersichtlich bzw. hörbar. Ausserdem fällt auf, dass das Wort "country" fast nur im Zusammenhang mit Trump's statements fällt. Entsprechend ist es an zweiter Stelle des "keyness"-Plots aufgeführt. Wenn man die Parolen genauer betrachtet, erkennt man, dass das Wort "years" zweideutig ist bei Trump. Einerseits braucht er es, um aufzuzeigen, wie viel das er in den vier Jahren gemacht (ein anderen Trump-spezifisches Wort) hat. Andererseits braucht er es aber auch, um Biden als Versager hinzustellen. Einige Mal erwähnte Trump, wie Biden in diesen vielen Jahr nichts erreicht habe. 
+The most Trump specific word is "joe". This is not surprising. Those who watched the debate will remember how often the president addressed his opponent by his first name. Although not depicted, "chris", i.e. the moderator's name, appears among the "most typical" Trump words. Trump's direct manner is thus clearly visible or audible in this debate as well. It is also noticeable that the word "country" is almost only used in conjunction with Trump's statements. Accordingly, it is listed in the second place of the "keyness" plot. If you take a closer look at the phrases, you can see that the word "years" is ambiguous in Trump's statements.
 
-Und wie schaut es bei Biden aus? Wie bereits im obigen Plot fällt das Wort "fact" sofort ins Auge. Biden benutzte dieses Wort 37 mal, Trump kein einziges Mal. Entsprechend steht es an erster Stelle der Biden-spezifischen Wörter. 
+On the one hand, he uses it to show how much he has done in the four years (another Trump-specific word). On the other hand, he uses it to deliver how Biden failed. Several times Trump mentioned how Biden had achieved nothing in those many years. 
+
+<br>
 
 ```{r, fig.height=8, fig.width=8, fig.retina=3}
 #keyness plot
 
 tstat_key <- textstat_keyness(dfm_debate)
-textplot_keyness(tstat_key, n = 10, font = "Trebuchet MS", color = fill_values) +
+textplot_keyness(tstat_key, n = 10, font = "Trebuchet MS", color = fill_values, labelsize = 3) +
   labs(title = "Keyness",
        x = "\nChi Square",
        y = "") +
@@ -259,29 +269,26 @@ textplot_keyness(tstat_key, n = 10, font = "Trebuchet MS", color = fill_values) 
   theme(panel.grid = element_blank(),
         legend.position = "right",
         plot.title = element_text(hjust = 0.5, face = "bold"),
-        plot.background = element_rect(fill = "lightgrey", color = "lightgrey"),
+        plot.background = element_rect(fill = "#FAFAFA", color = "#FAFAFA"),
         text = element_text(family = "Trebuchet MS"))
 ```
 
+And what about Biden? As in the plot above, the word "fact" immediately catches the eye. Biden used this word 37 times, Trump, not a single time. Accordingly, it is the first of the Biden-specific words. In second place appears "deal".
+
+On the one hand, Biden means the green new deal, which he refers to several times. On the other hand, he often used the phrase "here's the deal" in the debate, causing this word to be associated with Biden. Other terms frequently used by candidate Biden are "american", "covid" or "true".
+
+So far, we have only looked at individual words. However, it is often more informative to look at the words embedded in a context. Take the word "true", which was often used by Biden. He might have meant true facts (true) as well as false facts (not true). We only know this when we look at the words before or after the relevant word, respectively. Such word pairs or three words together are called bi-grams or tri-grams. While these n-grams can easily be extracted using certain functions, they are difficult to visualize informatively. For this reason, I decided to use an alternative. 
+
+Network plots follow a similar, albeit slightly different approach. Here we mainly deal with the co-occurrence of two words. For example, President Trump often used the word "country". But in connection with which other words did he use it? The following plots provide information on this. The 50 most frequent words of both candidates were selected. More intense colors represent a more frequent co-occurrence of two words. As the minimum proportion for co-occurrence frequencies of features to be included, I chose 0.75.
+
+<br>
+
 ```{r}
 # creating a network
-
-# biden
-
-fcm_biden <- fcm(dfm_biden)
-feat_biden <- names(topfeatures(fcm_biden, 30))
-set.seed(133)
-fcm_select(fcm_biden, pattern = feat_biden) %>%
-    textplot_network(min_freq = 0.75,
-                     edge_color = "#18314F",
-                     edge_alpha = 0.3,
-                     vertex_labelfont = "Trebuchet MS") +
-  theme(plot.background = element_rect(fill = "lightgrey"))
-
 # trump
 
 fcm_trump <- fcm(dfm_trump)
-feat_trump <- names(topfeatures(fcm_trump, 30))
+feat_trump <- names(topfeatures(fcm_trump, 50))
 set.seed(133)
 fcm_select(fcm_trump, pattern = feat_trump) %>%
     textplot_network(min_freq = 0.75,
@@ -290,21 +297,54 @@ fcm_select(fcm_trump, pattern = feat_trump) %>%
                      vertex_labelfont = "Trebuchet MS",
                      vertex_color = "black", 
                      vertex_labelsize = 3) +
-  ggtitle("Network of Trump's most frequent words\n") +
-  theme(plot.background = element_rect(fill = "lightgrey", color = "lightgrey"),
+  ggtitle("Network of Trump's most co-occuring words\n") +
+  theme(plot.background = element_rect(fill = "#FAFAFA", color = "#FAFAFA"),
+        plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))
+
+ggsave("plots/network_trump.png", dpi = 400, width = 30, height = 20, units = "cm")
+```
+
+<br>
+
+In the center of the network, we see the most frequently used words ("want", "look", "said") while the less often used words are shown at the border. Although it is difficult to make sense of the many different connections, some supposedly random words stand out. "Forest" for example. In one of his statements about wildfires, Trump mentioned the word several times, but never again after that. Another such example is "cars". Can we better decipher the co-occurring words of Biden?
+
+<br>
+
+```{r}
+# biden
+
+fcm_biden <- fcm(dfm_biden)
+feat_biden <- names(topfeatures(fcm_biden, 50))
+set.seed(12)
+fcm_select(fcm_biden, pattern = feat_biden) %>%
+    textplot_network(min_freq = 0.75,
+                     edge_color = "#18314F",
+                     edge_alpha = 0.3,
+                     vertex_labelfont = "Trebuchet MS",
+                     vertex_color = "black", 
+                     vertex_labelsize = 3) +
+  ggtitle("Network of Biden's most co-occuring words\n") +
+  theme(plot.background = element_rect(fill = "#FAFAFA", color = "#FAFAFA"),
         plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))
 ```
 
+<br>
+
+Again, the more intense colored lines represent the co-occurrences between frequent words. "Way", "fact" or "deal" are at the center. "Deal", for example, co-occurs with very different terms such as "ballots", "time", "economy" or " tax", which may indicate a wide-ranging demand for reform on the part of Biden. At the same time, however, we have to remember that Biden used the expression "here's the deal" very often, and thus certain relations between the words might be distorted. 
+
+While these network plots are not easy to decipher, they allow more detailed insight into the connections between the different words and, thus, at best, the two presidential candidates' statements. However, to draw more precise conclusions, several further steps would have to be taken. This brings me to the last section of this article. 
+
 ## What's next? {-}
 
-Dieser Beitrag repräsentiert nur einen sehr kleinen Teil der Vielzahl an Möglichkeiten, die Textdaten dieser Debatte offerieren. Beispielsweise versuchte ich mit einem unsupervised model (LDA) verschiedenene Topics der Debatte zu extrahieren, doch nach einigen Schwierigkeiten liess ich es dabei sein. Abgesehen von den Netzwerkplots habe ich die Texte als "bag-of-words" behandelt. Sprich, die realtive Position der Wörter in den Sätzen habe ich aktuell nicht berücksichtigt. Diese würde bestimmte auch einige interessante Fragen beantworten. 
+This contribution represents only a tiny part of the multitude of possibilities offered by text data from this debate. For example, I tried to use an unsupervised model (LDA) to extract different debate topics, but after some difficulties, I abandoned it. Here I think there is still a lot to be learned.
 
-Mit dem öffentlich zugänglichen Code möchte ich Leute dazu ermutigen, zur Analyse beizutragen, um weitere interessante Einblick in die (fehlende?) Debattenkultur der Präsidentschaftskandidaten zu gewinnen. Entweder kann man direkt ein Issue im entsprechenden Repository ablegen oder dann das Repository klonen und die Analyse selber erweitern. 
+Furthermore, apart from the network plots, I treated the texts as "bag-of-words". That means I did not consider the actual position of the words in the sentences. This, too, would answer some interesting questions. 
 
-In diesem Sinne hoffe ich, einen etwas, wenn auch doch eher oberflächlichen, differenzierten Einblick in die ersten 2020 Präsidentschaftsdebatte gewährt haben zu können. Ob und wie sich das Debattenformat für die zukünftigen Gegenübertreffen ändern werden, kann ich nicht beeinflussen. Ich bin aber bereits zufrieden, wenn ich einige Leute mit diesem Beitrag dazu anregen konnte, eigene Fragen mithilfe der mit R zu Verfügung stehenden Tools beantworten könnne. 
+With the publicly available code, I would like to encourage people to contribute to the analysis to gain further intriguing insights into the (missing?) debate culture. You can either file an issue directly in my corresponding repository or clone the repository and extend the analysis yourself. 
+
+In this sense, I hope to have provided a somewhat, if rather superficial, differentiated insight into the first 2020 presidential debate. Whether and how the format of the debate will change for future encounters is beyond my control. However, I am already quite happy if I have been able to inspire some people with this contribution to answering their own questions using the wide range of tools available in R. 
 
 ```{r, echo=FALSE}
 rolldown::scrollama_setup(
-  list(step = '.level1', offset = .2, debug = F)
-)
+  list(step = '.level1', offset = .2, debug = F))
 ```
