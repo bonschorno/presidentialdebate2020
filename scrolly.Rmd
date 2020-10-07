@@ -49,7 +49,7 @@ The first visualizations follow very simple questions: Who has made how many sta
 <br>
 
 ```{r, include=FALSE}
-debate <- read_csv("presdebate2020.csv")
+debate <- read_csv("webscraping/presdebate2020.csv")
 
 theme_set(theme_minimal()) 
 theme_update(panel.grid = element_blank(),
