@@ -1,0 +1,32 @@
+{
+    "id": "0FEFC4BA",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1602056744481.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "expression": "number_words",
+        "caption": "number_words",
+        "totalObservations": 441,
+        "displayedObservations": 441,
+        "variables": 4,
+        "cacheKey": "44AC89B0",
+        "object": "number_words",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=number_words&cache_key=44AC89B0&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 140467333707976,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1602056744481,
+    "read_only": false,
+    "read_only_alternatives": []
+}
